@@ -1,11 +1,7 @@
 const resolvers = {
     Query: {
-        books: async (_, __, { mongoDataMethods }) => {
-            return await mongoDataMethods.getAllBook();
-        },
-        authors: async (_, __, { mongoDataMethods }) => {
-            return await mongoDataMethods.getAllAuthor();
-        },
+        books: async (_, __, { mongoDataMethods }) => await mongoDataMethods.getAllBook(),
+        authors: async (_, __, { mongoDataMethods }) => await mongoDataMethods.getAllAuthor(),
         book: async (_, args, { mongoDataMethods }) => {
             // args = book =  {id}
             return await mongoDataMethods.getBook(args.id);
@@ -18,14 +14,12 @@ const resolvers = {
     Book: {
         author: async (parent, _, { mongoDataMethods }) => {
             //parent = book
-            // console.log(parent);
             return await mongoDataMethods.getAuthorABook(parent.authorId);
         },
     },
     Author: {
         books: async (parent, _, { mongoDataMethods }) => {
             // parent = author
-            // console.log(parent);
             return await mongoDataMethods.getBooksAuthor(parent._id);
         },
     },
